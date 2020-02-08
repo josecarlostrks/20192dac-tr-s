@@ -1,0 +1,21 @@
+version: "3"
+services:
+  postgres:
+    image: postgre
+    ports:
+     - "5432:5432"
+    volumes:
+     - "$HOME/docker/volumes/postgres:/var/lib/postgresql/data"
+    environment:
+      POSTGRES_PASSWORD: trks
+  reverso:
+    image: reverso:1.0-SNAPSHOT
+    ports:
+      - "8082:8080"
+    environment:
+      - DB_HOST=postgres
+      - DB_USER=postgres
+      - DB_PASSWORD=trks
+      - DB_NAME=atividade-tres
+    depends_on:
+      - postgres
